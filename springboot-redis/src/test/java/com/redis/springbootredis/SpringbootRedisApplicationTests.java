@@ -1,14 +1,18 @@
 package com.redis.springbootredis;
 
+import com.redis.springbootredis.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisTemplate;
 
+
 @SpringBootTest
 class SpringbootRedisApplicationTests {
     @Autowired
+    @Qualifier("redisTemplate")
     private RedisTemplate redisTemplate;
 
     @Test
@@ -46,4 +50,14 @@ class SpringbootRedisApplicationTests {
         redisTemplate.opsForSet().add("k1",1,2,4,5,6);
         System.out.println(redisTemplate.opsForSet().members("k1"));
     }
+
+    @Test
+    void test2(){
+        User user = new User("史小涛","2");
+        redisTemplate.opsForValue().set("user",user);
+        System.out.println(redisTemplate.opsForValue().get("user"));
+        String s = "";
+        s = 5 > 8 ? "111": "112221";
+    }
+
 }
